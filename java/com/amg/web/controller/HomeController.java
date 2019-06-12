@@ -19,6 +19,3 @@ import org.springframework.web.bind.annotation.RequestMapping;
 }
 
 
-git add -A
-git commit -m "14:03"
-git push origin master

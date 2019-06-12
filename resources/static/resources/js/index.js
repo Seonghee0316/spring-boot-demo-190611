@@ -1,27 +1,94 @@
-alert('자바스크립트 연결 성공!!');
-
-// wrapper은 객체/. index.html 전체는 하나의 Dom 나머지는 컴포넌트로 처리할것임. <div id="wrapper"> <- 컴포넌트임.
-
-
-var wrapper = document.querySelector("#wrapper");
-wrapper.innerHTML = '<h1>SPA 시작</h1>'
-+'<div id="target">삭제할 내용</div>'
-+'<button id="btn">지워버리자ddd</button>'
-+'<button id="btn2">추가하자</button>';
-
-// 아래는 객체임. 컴포넌트.
-var btn = document.querySelector('#btn');
-var target = document.getElementById('target');
-
-btn.addEventListener('click', function(){
-    target.innerHTML = '';
-});
-
-var btn2 = document.querySelector('#btn2');
-
-btn2.addEventListener('click', function() {
-    var temp = document.creatTextNode('새로 추가 됨');
-    target.appendChild(temp);
-});
-
-
+var app = (function () {
+    // console.log('ggg');
+    let init = function () { //맨처음에 보여줄 화면
+        login_form(); //login_form은 private 메소드가 되었다.
+ 
+    };
+    let login_form = function () {
+        let wrapper = document.querySelector('#wrapper'); //document = html 전체 하나 DOM객체(id나 class있는 것).
+        wrapper.innerHTML = +'<form action="/action_page.php">'
+            // + '<div id="target">'
+            + '  First name:<br>'
+            + '  <input type="text" name="firstname" value="Mickey">'
+            + '  <br>'
+            + '  Last name:<br>'
+            + '  <input type="text" name="lastname" value="Mouse">'
+            + '  <br><br>'
+            + '  <input type="submit" value="Login">'
+            + '  <input type="button" id=btn_join value="Join">'
+            // + '</div>'
+            + '</form> ';
+ 
+        // var btn = document.querySelector('#btn');
+        // var target = document.getElementById('target');
+        // btn.addEventListener('click', function () {
+        //     //   document.getElementById('target').innerHTML =' ';
+        //     target.innerHTML = ' ';
+        // });
+        // var btn2 = document.querySelector('#btn2');
+ 
+        // btn2.addEventListener('click', function () {
+        //     var temp = document.createTextNode('새로 추가됨');
+        //     target.appendChild(temp);
+        // });
+        let btn_join = document.querySelector('#btn_join');
+        btn_join.addEventListener('click', function () {
+            join_form();
+        });
+    }
+ 
+        let join_form = function(){
+ 
+            wrapper.innerHTML =
+             +'<form action="/action_page.php">'
+             + '  id:<br>'
+             + '  <input type="text" name="id" value="id">'
+             + '  <br>'
+             + '  pw:<br>'
+             + '  <input type="text" name="pw" value="pw">'
+             + '  <br>'
+             + '  name:<br>'
+             + '  <input type="text" name="c_name" value="name">'
+             + '  <br>'
+             + '  birth:<br>'
+             + '  <input type="text" name="birth" value="birth">'
+             + '  <br>'
+             + '  phone:<br>'
+             + '  <input type="text" name="phone" value="phone">'
+             + '  <br><br>'
+             + '  <input type="submit" id="btn_confirm" value="확인">'
+             +'</form> '
+ 
+ 
+        let btn_confirm = document.querySelector('#btn_confirm');
+        btn_confirm.addEventListener('click', function () {
+            login_form();
+        });
+    }
+    let join_form =function() {
+        let wrapper = document.querySelector("#wrapper");
+        wrapper.innerHTML =
+        +'<form action="/action_page.php">'
+        + '  id:<br>'
+        + '  <input type="text" name="id" value="id">'
+        + '  <br>'
+        + '  pw:<br>'
+        + '  <input type="text" name="pw" value="pw">'
+        + '  <br>'
+        + '  name:<br>'
+        + '  <input type="text" name="c_name" value="name">'
+        + '  <br>'
+        + '  birth:<br>'
+        + '  <input type="text" name="birth" value="birth">'
+        + '  <br>'
+        + '  phone:<br>'
+        + '  <input type="text" name="phone" value="phone">'
+        + '  <br><br>'
+        + '  <input type="submit" id="btn_confirm" value="확인">'
+        + '  <input type="submit" id="btn_cansel" value="취소">'
+        +'</form> ';
+    }
+    return {
+        aa: init  //init은 public 메소드가 되었다
+    };
+ })(); //();  끝에 이부분이 '즉시 실행해라' 라는 것
