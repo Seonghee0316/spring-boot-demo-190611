@@ -6,7 +6,7 @@ alert('자바스크립트 연결 성공!!');
 var wrapper = document.querySelector("#wrapper");
 wrapper.innerHTML = '<h1>SPA 시작</h1>'
 +'<div id="target">삭제할 내용</div>'
-+'<button id="btn">지워버리자</button>'
++'<button id="btn">지워버리자ddd</button>'
 +'<button id="btn2">추가하자</button>';
 
 // 아래는 객체임. 컴포넌트.
