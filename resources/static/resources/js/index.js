@@ -62,7 +62,7 @@ var app = (()=>{
  
  
         let btn_confirm = document.querySelector('#btn_confirm');
-        btn_confirm.addEventListener('click', function () {
+        btn_confirm.addEventListener('click', () => {
             login_form();
         });
     }
