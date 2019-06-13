@@ -6,15 +6,13 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 /**
- * ProductDTO
+ * OdersDTO
  */
 @Data @Component @Lazy
-public class ProductDTO {
-        private String productId,
-        productName,
-        supplierId,
-        categoryId,
-        unit,
-        price,
-        photo;     
+public class OrderDTO {
+            private String orderId,
+            customerId,
+            employeeId,
+            orderDate,
+            shipperId;
 }

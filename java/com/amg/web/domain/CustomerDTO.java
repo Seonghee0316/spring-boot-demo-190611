@@ -1,5 +1,8 @@
 package com.amg.web.domain;
 
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 /**
@@ -7,15 +10,15 @@ import lombok.Data;
  */
 
  //DTO 또는 VO
- @Data
+ @Data @Component @Lazy
 public class CustomerDTO {
-            private String customer_id,
-            customer_name,
-            password,
-            ssn,
-            phone,
-            city,
-            address,
-            postalcode,
-            photo;
+    private String customerId,
+    customerName,
+    password,
+    ssn,
+    phone,
+    city,
+    address,
+    postalcode,
+    photo;
 }

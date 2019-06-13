@@ -1,13 +1,16 @@
 package com.amg.web.domain;
 
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 /**
  * ShipperDTO
  */
-@Data
+@Data @Component @Lazy
 public class ShipperDTO {
-    private String shipper_id,
-            shipper_name,
+    private String shipperId,
+            shipperName,
             phone; 
 }

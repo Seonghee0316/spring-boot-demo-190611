@@ -1,5 +1,4 @@
 var app = (()=>{
-    // console.log('ggg');
     let init = () => { //맨처음에 보여줄 화면
         login_form(); //login_form은 private 메소드가 되었다.
  
@@ -7,7 +6,6 @@ var app = (()=>{
     let login_form = () => {
         let wrapper = document.querySelector('#wrapper'); //document = html 전체 하나. wrapper는 DOM객체(id나 class있는 것).
         wrapper.innerHTML = '<form action="/action_page.php">'
-            // + '<div id="target">'
             + '  First name:<br>'
             + '  <input type="text" name="firstname" value="Mickey">'
             + '  <br>'
@@ -16,7 +14,6 @@ var app = (()=>{
             + '  <br><br>'
             + '  <input type="submit" value="Login">'
             + '  <input type="button" id=btn_join value="Join">'
-            // + '</div>'
             + '</form> ';
  
         // var btn = document.querySelector('#btn');
