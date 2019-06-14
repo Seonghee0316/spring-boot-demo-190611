@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - WebApplication",
+            "request": "launch",
+            "mainClass": "com.amg.web.WebApplication"
+        }
+    ]
+}

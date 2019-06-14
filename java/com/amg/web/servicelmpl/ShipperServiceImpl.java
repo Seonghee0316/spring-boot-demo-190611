@@ -34,7 +34,7 @@ public class ShipperServiceImpl implements ShipperService {
     }
 
     @Override
-    public void updateShipperr(ShipperDTO shipper) {
+    public void updateShipper(ShipperDTO shipper) {
 
     }
 

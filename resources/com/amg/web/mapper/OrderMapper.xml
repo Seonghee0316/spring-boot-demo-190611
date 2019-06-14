@@ -4,20 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.amg.web.mapper.OrderMapper">
+  <resultMap id="orderMap" type="com.amg.web.domain.OrderDTO">
+    <id property="orderId" column="ORDER_ID"/>
+    <result property="customerId" column="CUSTOMER_ID"/>
+    <result property="employeeId" column="EMPLOYEE_ID"/>
+  <result property="orderDate" column="ORDER_DATE"/>
+    <result property="shipperId" column="SHIPPER_ID"/>
+  </resultMap>
     <insert id="insertOrder" parameterType="com.amg.web.domain.OrderDTO">
       insert into ORDERS (ORDER_ID, CUSTOMER_ID, EMPLOYEE_ID, ORDER_DATE, SHIPPER_ID)
      values (#{orderId},#{customerId},#{employeeId},#{orderDate},#{shipperId})
     </insert>
 
-  <select id="selectOrders" resultType="com.amg.web.domain.OrderDTO">
+  <select id="selectOrders" resultMap="orderMap">
     select * from ORDERS 
   </select>
   <!-- 아이디만 아니면 됨. option은 임의로 박아놓음 -->
-    <select id="selectOrdersByOption" resultType="com.amg.web.domain.OrderDTO"
+    <select id="selectOrdersByOption" resultMap="orderMap"
                                             parameterType="com.amg.web.domain.OrderDTO">
     select * from ORDERS where ORDER_DATE = #{orderDate} 
   </select>
-    <select id="selectOrdersByOrderId" resultType="com.amg.web.domain.OrderDTO"
+    <select id="selectOrdersByOrderId" resultMap="orderMap"
                                             parameterType="string">
     select * from ORDERS where ORDER_ID = #{value}
   </select>

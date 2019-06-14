@@ -4,20 +4,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.amg.web.mapper.ProductMapper">
+    <resultMap id="productMap" type="com.amg.web.domain.ProductDTO">
+      <id property="productId" column="PRODUCT_ID"/>
+      <result property="productName" column="PRODUCT_NAME"/>
+    <result property="supplierId" column="SUPPLIER_ID"/>
+      <result property="categoryId" column="CATEGORY_ID"/>
+        <result property="unit" column="UNIT"/>
+            <result property="price" column="PRICE"/>
+    </resultMap>
     <insert id="insertProduct" parameterType="com.amg.web.domain.ProductDTO">
-      insert into PRODUCTS (PRODUCT_ID,PRODUCT_NAME,SUPPLIER_ID,CATEGORY_ID,UNIT,PRICE)
-     values (#{productId},#{productName},#{supplierId},#{categoryId},#{unit},#{price})
+      insert into PRODUCTS (PRODUCT_ID,PRODUCT_NAME,SUPPLIER_ID,CATEGORY_ID,UNIT,PRICE, PHOTO)
+     values (#{productId},#{productName},#{supplierId},#{categoryId},#{unit},#{price},#{photo})
     </insert>
      
-  <select id="selectProducts" resultType="com.amg.web.domain.ProductDTO">
+  <select id="selectProducts" resultMap="productMap">
     select * from PRODUCTS 
   </select>
   <!-- 아이디만 아니면 됨. option은 임의로 박아놓음 -->
-    <select id="selectProductsByOption" resultType="com.amg.web.domain.ProductDTO"
+    <select id="selectProductsByOption" resultMap="productMap"
                                             parameterType="com.amg.web.domain.ProductDTO">
     select * from PRODUCTS where PRODUCT_NAME = #{productName} 
   </select>
-    <select id="selectProductsByProductId" resultType="com.amg.web.domain.ProductDTO"
+    <select id="selectProductsByProductId" resultMap="productMap"
                                             parameterType="string">
     select * from PRODUCTS where PRODUCT_ID = #{value}
   </select>

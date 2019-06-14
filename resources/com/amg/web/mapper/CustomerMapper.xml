@@ -4,23 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.amg.web.mapper.CustomerMapper">
+<resultMap id="customerMap" type="com.amg.web.domain.CustomerDTO">
+  <id property="customerId" column="CUSTOMER_ID"/>
+  <result property="customerName" column="CUSTOMER_NAME"/>
+  <result property="password" column="PASSWORD"/>
+<result property="ssn" column="SSN"/>
+  <result property="phone" column="PHONE"/>
+ <result property="city" column="CITY"/>
+  <result property="address" column="ADDRESS"/>
+<result property="postalcode" column="POSTALCODE"/>
+  <result property="photo" column="PHOTO"/>
+</resultMap>
     <insert id="insertCustomer" parameterType="com.amg.web.domain.CustomerDTO">
       insert into CUSTOMERS (CUSTOMER_ID, CUSTOMER_NAME, PASSWORD, SSN, PHONE, CITY, ADDRESS, POSTALCODE, PHOTO)
      values (#{customerId},#{customerName},#{password}, #{ssn},#{phone},#{city}, #{address},#{postalcode},#{photo})
     </insert>
 
-  <select id="selectCustomers" resultType="com.amg.web.domain.CustomerDTO">
+  <select id="selectCustomers" resultMap="customerMap">
     select * from CUSTOMERS 
   </select>
   <!-- 아이디만 아니면 됨. option은 임의로 박아놓음 -->
-    <select id="selectCustomersByOption" resultType="com.amg.web.domain.CustomerDTO"
+    <select id="selectCustomersByOption" resultMap="customerMap"
                                             parameterType="com.amg.web.domain.CustomerDTO">
     select * from CUSTOMERS where CUSTOMER_NAME = #{customerName} 
   </select>
-    <select id="selectCustomerByCustomerId" resultType="com.amg.web.domain.CustomerDTO"
+    <select id="selectCustomerByCustomerId" resultMap="customerMap"
                                             parameterType="string">
     select * from CUSTOMERS where CUSTOMER_ID = #{value}
   </select>
+
+<!-- 테이블의 고객 총 수를 갖고옴 -->
+<select id="selectCount" resultType="int">
+  select count(*) as count from CUSTOMERS 
+</select>
+
 <update
   id="updateCustomer" parameterType="com.amg.web.domain.CustomerDTO">
     update CUSTOMERS set

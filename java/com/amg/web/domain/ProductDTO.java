@@ -15,5 +15,6 @@ public class ProductDTO {
         supplierId,
         categoryId,
         unit,
-        price;     
+        price,
+        photo;     
 }
