@@ -12,7 +12,7 @@ var app = (()=>{
             + '  Last name:<br>'
             + '  <input type="text" name="lastname" value="Mouse">'
             + '  <br><br>'
-            + '  <input type="submit" value="Login">'
+            + '  <input type="submit" id="btn_login" value="Login">'
             + '  <input type="button" id=btn_join value="Join">'
             + '</form> ';
  
@@ -32,8 +32,28 @@ var app = (()=>{
         btn_join.addEventListener('click', () => {
             join_form();
         });
+        let login_btn = document.querySelector('#btn_login');
+        login_btn.addEventListener('click',()=> {
+            alert('로그인 버튼 클릭');
+            count();
+        });   
     }
  
+    let count =()=>{
+        let xhr = new XMLHttpRequest();
+        method = 'GET';
+        url= 'count';
+        xhr.open(method, url, true);
+        xhr.onreadystatechange=()=>{
+            if(xhr.readyState===4 && xhr.readyState == 200) {
+                alert('성공');
+                let wrapper = document.querySelector('#wrapper'); 
+                wrapper.innerHTML ='총 고객수 : <h1>'+xhr.responseText+'</h1>'
+
+            }
+        }
+    }
+
         let join_form = () => {
             let wrapper = document.querySelector('#wrapper');
             wrapper.innerHTML =
@@ -62,8 +82,10 @@ var app = (()=>{
         btn_confirm.addEventListener('click', () => {
             login_form();
         });
+
+        
     }
- 
+
     return {
         aa: init  //init은 public 메소드가 되었다
     };
