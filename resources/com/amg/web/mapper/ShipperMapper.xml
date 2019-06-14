@@ -3,35 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.amg.web.mapper.CategoryMapper">
-    <insert id="insertCategory" parameterType="com.amg.web.domain.CategoryDTO">
-      insert into CATEGORIES (CATEGORY_ID,CATEGORY_NAME,DESCRIPTION)
-     values (#{categoryId},#{categoryName},#{description})
+<mapper namespace="com.amg.web.mapper.ShipperMapper">
+    <insert id="insertShipper" parameterType="com.amg.web.domain.ShipperDTO">
+      insert into SHIPPERS (SHIPPER_ID,SHIPPER_NAME,PHONE)
+     values (#{shipperId},#{shipperName},#{phone})
     </insert>
 
-  <select id="selectCategories" resultType="com.amg.web.domain.CategoryDTO">
-    select * from CATEGORIES 
+  <select id="selectShipper" resultType="com.amg.web.domain.ShipperDTO">
+    select * from SHIPPERS 
   </select>
   <!-- 아이디만 아니면 됨. option은 임의로 박아놓음 -->
-    <select id="selectCategoriesByOption" resultType="com.amg.web.domain.CategoryDTO"
-                                            parameterType="com.amg.web.domain.CategoryDTO">
-    select * from CATEGORIES where CATEGORY_NAME = #{categoryName} 
+    <select id="selectShipperByOption" resultType="com.amg.web.domain.ShipperDTO"
+                                            parameterType="com.amg.web.domain.ShipperDTO">
+    select * from SHIPPERS where SHIPPER_NAME = #{shipperName} 
   </select>
-    <select id="selectCategoryBycategoryId" resultType="com.amg.web.domain.CategoryDTO"
+    <select id="selectShipperByShipperId" resultType="com.amg.web.domain.ShipperDTO"
                                             parameterType="string">
-    select * from CATEGORIES where CATEGORY_ID = #{value}
+    select * from SHIPPERS where SHIPPER_ID = #{value}
   </select>
 <update
-  id="updateCategory" parameterType="com.amg.web.domain.CategoryDTO">
-    update CATEGORIES set
-        CATEGORY_NAME = #{categoryName},
-        DESCRIPTION = #{description}
-    where CATEGORY_ID = #{categoryId}
+  id="updateShipper" parameterType="com.amg.web.domain.ShipperDTO">
+    update SHIPPERS set
+        SHIPPER_ID = #{shipperId},
+        SHIPPER_NAME = #{shipperName},
+        PHONE = #{phone}
+    where SHIPPER_ID = #{shipperId}
   </update>
 
 <delete
-  id="deleteCategory" parameterType="com.amg.web.domain.CategoryDTO">
-     delete from CATEGORIES where CATEGORY_ID = #{categoryId}
+  id="deleteShipper" parameterType="com.amg.web.domain.ShipperDTO">
+     delete from SHIPPERS where SHIPPER_ID = #{shipperId}
 </delete>
 
 </mapper>

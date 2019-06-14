@@ -113,7 +113,7 @@ CREATE TABLE PRODUCTS(
 );
 
 PRODUCT_ID, PRODUCT_NAME SUPPLIER_ID CATEGORY_ID UNIT PRICE
-productId, productName, supplierId, categoryId, unit, price, photo;
+productId, productName, supplierId, categoryId, unit, price, photo; // photo가 왜 있는지 모르겠네. 일단 다른 곳엔 지워놨음.
 
 CREATE TABLE ORDER_DETAILS(
     ORDER_DETAIL_ID NUMBER PRIMARY KEY,

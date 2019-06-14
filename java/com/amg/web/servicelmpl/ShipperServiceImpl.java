@@ -34,12 +34,12 @@ public class ShipperServiceImpl implements ShipperService {
     }
 
     @Override
-    public void updateCustomer(ShipperDTO shipper) {
+    public void updateShipperr(ShipperDTO shipper) {
 
     }
 
     @Override
-    public void deleteCustomer(ShipperDTO shipper) {
+    public void deleteShipper(ShipperDTO shipper) {
 
     }
 

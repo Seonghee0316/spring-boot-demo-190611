@@ -12,11 +12,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShipperMapper {
-    public void addShipper(ShipperDTO customer);
+    public void insertShipper(ShipperDTO customer);
     public List<ShipperDTO> selectShipper();
     public List<ShipperDTO> selectShipperByOption(ShipperDTO option);
     public ShipperDTO selectShipperByShipperId(String shipperId);
-    public void updateCustomer(ShipperDTO shipper);
-    public void deleteCustomer(ShipperDTO shipper);
+    public void updateShipper(ShipperDTO shipper);
+    public void deleteShipper(ShipperDTO shipper);
     
 }

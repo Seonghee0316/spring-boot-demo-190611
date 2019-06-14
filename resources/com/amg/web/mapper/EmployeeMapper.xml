@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.amg.web.mapper.CategoryMapper">
+<mapper namespace="com.amg.web.mapper.EmployeeMapper">
     <insert id="insertEmployee" parameterType="com.amg.web.domain.EmployeeDTO">
       insert into EMPLOYEES (EMPLOYEE_ID, MANAGER, NAME, BIRTH_DATE, PHOTO, NOTES)
      values (#{employeeId},#{manager},#{name}, #{birthDate},#{photo},#{notes})

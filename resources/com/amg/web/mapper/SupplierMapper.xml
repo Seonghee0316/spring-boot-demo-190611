@@ -3,35 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.amg.web.mapper.CategoryMapper">
-    <insert id="insertCategory" parameterType="com.amg.web.domain.CategoryDTO">
-      insert into CATEGORIES (CATEGORY_ID,CATEGORY_NAME,DESCRIPTION)
-     values (#{categoryId},#{categoryName},#{description})
+<mapper namespace="com.amg.web.mapper.SupplierMapper">
+    <insert id="insertSupplier" parameterType="com.amg.web.domain.SupplierDTO">
+      insert into SUPPLIERS (SUPPLIER_ID,SUPPLIER_NAME,CONTACT_NAME,ADDRESS, CITY, POSTAL_CODE, COUNTRY, PHONE)
+     values (#{supplierId},#{supplierName},#{contactName},#{address},#{city},#{postalCode},#{country},#{phone})
     </insert>
 
-  <select id="selectCategories" resultType="com.amg.web.domain.CategoryDTO">
-    select * from CATEGORIES 
+  <select id="selectSuppliers" resultType="com.amg.web.domain.SupplierDTO">
+    select * from SUPPLIERS 
   </select>
   <!-- 아이디만 아니면 됨. option은 임의로 박아놓음 -->
-    <select id="selectCategoriesByOption" resultType="com.amg.web.domain.CategoryDTO"
-                                            parameterType="com.amg.web.domain.CategoryDTO">
-    select * from CATEGORIES where CATEGORY_NAME = #{categoryName} 
+    <select id="selectSuppliersByOption" resultType="com.amg.web.domain.SupplierDTO"
+                                            parameterType="com.amg.web.domain.SupplierDTO">
+    select * from SUPPLIERS where SUPPLIER_NAME = #{supplierName} 
   </select>
-    <select id="selectCategoryBycategoryId" resultType="com.amg.web.domain.CategoryDTO"
+    <select id="selectSuppliersBySupplierId" resultType="com.amg.web.domain.SupplierDTO"
                                             parameterType="string">
-    select * from CATEGORIES where CATEGORY_ID = #{value}
+    select * from SUPPLIERS where SUPPLIER_ID = #{value}
   </select>
 <update
-  id="updateCategory" parameterType="com.amg.web.domain.CategoryDTO">
-    update CATEGORIES set
-        CATEGORY_NAME = #{categoryName},
-        DESCRIPTION = #{description}
-    where CATEGORY_ID = #{categoryId}
+  id="updateSupplier" parameterType="com.amg.web.domain.SupplierDTO">
+    update SUPPLIERS set
+        SUPPLIER_ID = #{supplierId},
+        SUPPLIER_NAME = #{supplierName},
+         CONTACT_NAME = #{contactName},
+        ADDRESS = #{address},
+                CITY = #{city},
+        POSTAL_CODE = #{postalCode},
+                COUNTRY = #{country},
+        PHONE = #{phone}
+    where SUPPLIER_ID = #{supplierId}
   </update>
 
 <delete
-  id="deleteCategory" parameterType="com.amg.web.domain.CategoryDTO">
-     delete from CATEGORIES where CATEGORY_ID = #{categoryId}
+  id="deleteSupplier" parameterType="com.amg.web.domain.SupplierDTO">
+     delete from SUPPLIERS where SUPPLIER_ID = #{supplierId}
 </delete>
 
 </mapper>

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.amg.web.mapper.CategoryMapper">
+<mapper namespace="com.amg.web.mapper.CustomerMapper">
     <insert id="insertCustomer" parameterType="com.amg.web.domain.CustomerDTO">
       insert into CUSTOMERS (CUSTOMER_ID, CUSTOMER_NAME, PASSWORD, SSN, PHONE, CITY, ADDRESS, POSTALCODE, PHOTO)
      values (#{customerId},#{customerName},#{password}, #{ssn},#{phone},#{city}, #{address},#{postalcode},#{photo})
