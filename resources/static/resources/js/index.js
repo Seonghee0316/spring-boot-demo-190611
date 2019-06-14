@@ -33,25 +33,26 @@ var app = (()=>{
             join_form();
         });
         let login_btn = document.querySelector('#btn_login');
-        login_btn.addEventListener('click',()=> {
+        login_btn.addEventListener('click',(e)=> {
+            e.preventDefault();
             alert('로그인 버튼 클릭');
             count();
         });   
     }
- 
+ //열고 상태변화하고 보냄 
     let count =()=>{
         let xhr = new XMLHttpRequest();
         method = 'GET';
         url= 'count';
         xhr.open(method, url, true);
-        xhr.onreadystatechange=()=>{
-            if(xhr.readyState===4 && xhr.readyState == 200) {
+        xhr.onreadystatechange=()=>{    //데이터 상태를 말함. statechange 데이터 상태가 바뀜.
+            if(xhr.readyState===4 && xhr.status === 200) {
                 alert('성공');
                 let wrapper = document.querySelector('#wrapper'); 
-                wrapper.innerHTML ='총 고객수 : <h1>'+xhr.responseText+'</h1>'
-
+                wrapper.innerHTML ='총 고객수 : <h1>' + xhr.responseText + '</h1>'
             }
         }
+        xhr.send();
     }
 
         let join_form = () => {
