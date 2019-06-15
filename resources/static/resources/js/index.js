@@ -16,18 +16,6 @@ var app = (()=>{
             + '  <input type="button" id=btn_join value="Join">'
             + '</form> ';
  
-        // var btn = document.querySelector('#btn');
-        // var target = document.getElementById('target');
-        // btn.addEventListener('click', function () {
-        //     //   document.getElementById('target').innerHTML =' ';
-        //     target.innerHTML = ' ';
-        // });
-        // var btn2 = document.querySelector('#btn2');
- 
-        // btn2.addEventListener('click', function () {
-        //     var temp = document.createTextNode('새로 추가됨');
-        //     target.appendChild(temp);
-        // });
         let btn_join = document.querySelector('#btn_join');
         btn_join.addEventListener('click', () => {
             join_form();
