@@ -7,24 +7,55 @@ var app = (()=>{
         let wrapper = document.querySelector('#wrapper'); //document = html 전체 하나. wrapper는 DOM객체(id나 class있는 것).
         wrapper.innerHTML = '<form action="/action_page.php">'
             + '  First name:<br>'
-            + '  <input type="text" name="firstname" value="Mickey">'
+            + '  <input type="text" id= "customerId" name="customerId">'
             + '  <br>'
             + '  Last name:<br>'
-            + '  <input type="text" name="lastname" value="Mouse">'
+            + '  <input type="text" id="password" name="password">'
             + '  <br><br>'
             + '  <input type="submit" id="btn_login" value="Login">'
             + '  <input type="button" id=btn_join value="Join">'
+            + '  <input type="button" id=result_btn value="result">'
             + '</form> ';
- 
+        
+        let result_btn = document.querySelector('#result_btn');
+        result_btn.addEventListener('click', () => {
+            result();
+        })
+
         let btn_join = document.querySelector('#btn_join');
         btn_join.addEventListener('click', () => {
             join_form();
         });
+
         let login_btn = document.querySelector('#btn_login');
         login_btn.addEventListener('click',(e)=> {
             e.preventDefault();
             alert('로그인 버튼 클릭');
-            count();
+            id = document.getElementById('customerId').value;
+            pass = document.getElementById('password').value;
+
+            // count();
+        
+            let xhr = new XMLHttpRequest(),
+                method='GET',
+                url = 'login/' + id + '/' + pass;
+                //다 담아줌. 끝에 true는 값을 빨리 보내주는 것?
+                xhr.open(method, url, true);
+                xhr.onreadystatechange=()=>{
+                    // 밑에 상황일때만 보낼수잇음.
+                    if(xhr.readyState === 4 && xhr.status === 200) {
+                        let d =  xhr.responseText;
+                        if(d==='SUCCESS'){
+                            alert('hd');
+                            wrapper.innerHTML = '<h1>마이페이지</h1>';
+                        }else {
+                            // login_form();     
+                            wrapper.innerHTML = '<h1>로그인실패함</h1>';                       
+                        }
+             
+                    }
+                };
+                xhr.send();
         });   
     }
  //열고 상태변화하고 보냄 
@@ -35,9 +66,24 @@ var app = (()=>{
         xhr.open(method, url, true);
         xhr.onreadystatechange=()=>{    //데이터 상태를 말함. statechange 데이터 상태가 바뀜.
             if(xhr.readyState===4 && xhr.status === 200) {
-                alert('성공');
+                alert('총 고객 수 성공');
                 let wrapper = document.querySelector('#wrapper'); 
                 wrapper.innerHTML ='총 고객수 : <h1>' + xhr.responseText + '</h1>'
+            }
+        }
+        xhr.send();
+    }
+
+    let result =()=> {
+        let xhr = new XMLHttpRequest();
+        method = 'GET';
+        url= 'login';
+        xhr.open(method, url, true);
+        xhr.onreadystatechange=()=>{    //데이터 상태를 말함. statechange 데이터 상태가 바뀜.
+            if(xhr.readyState===4 && xhr.status === 200) {
+                alert('result성공');
+                let wrapper = document.querySelector('#wrapper'); 
+                wrapper.innerHTML ='성공여부: <h1>' + xhr.responseText + '</h1>'
             }
         }
         xhr.send();

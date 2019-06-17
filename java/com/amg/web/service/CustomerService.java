@@ -18,7 +18,8 @@ public interface CustomerService {
     public CustomerDTO findCustomerByCustomerId(String customerId);  //하나만 담을때 String도 객체임.
     public void updateCustomer(CustomerDTO customer); 
     public void deleteCustomer(CustomerDTO customer); //삭제할때 아디 비번 같이 받을수있으므로 DTO로
-	public int countAll();
+    public int countAll();
+    public CustomerDTO login(CustomerDTO customer);
 }
 
 
