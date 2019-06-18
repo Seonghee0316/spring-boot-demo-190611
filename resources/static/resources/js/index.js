@@ -1,127 +1,141 @@
-var app = (()=>{
-    let init = () => { //맨처음에 보여줄 화면
-        login_form(); //login_form은 private 메소드가 되었다.
- 
-    };
-    let login_form = () => {
-        let wrapper = document.querySelector('#wrapper'); //document = html 전체 하나. wrapper는 DOM객체(id나 class있는 것).
-        wrapper.innerHTML = '<form action="/action_page.php">'
-            + '  First name:<br>'
-            + '  <input type="text" id= "customerId" name="customerId">'
-            + '  <br>'
-            + '  Last name:<br>'
-            + '  <input type="text" id="password" name="password">'
-            + '  <br><br>'
-            + '  <input type="submit" id="btn_login" value="Login">'
-            + '  <input type="button" id=btn_join value="Join">'
-            + '  <input type="button" id=result_btn value="result">'
-            + '</form> ';
-        
-        let result_btn = document.querySelector('#result_btn');
-        result_btn.addEventListener('click', () => {
-            result();
-        })
+var app =  {
+    $wrapper :  $wrapper = document.querySelector('#wrapper'),
+    init : init
+};
 
-        let btn_join = document.querySelector('#btn_join');
-        btn_join.addEventListener('click', () => {
-            join_form();
+var customer = {
+    mypage : mypage,
+    login_form : login_form,
+    join_form : join_form,
+    join : join,
+    count : count 
+}
+
+    function init(){
+        $wrapper = document.querySelector('#wrapper'),
+        $wrapper.innerHTML = customer.login_form();
+        let join_btn = document.querySelector('#join-btn');
+        join_btn.addEventListener('click',()=>{
+            $wrapper.innerHTML = customer.join_form();
+            document.getElementById('confirm-btn')
+            .addEventListener('click', e=>{
+                e.preventDefault();
+                alert('조인버튼 클릭');
+                customer.join();
+            });
         });
-
-        let login_btn = document.querySelector('#btn_login');
-        login_btn.addEventListener('click',(e)=> {
+        let login_btn = document.querySelector('#login-btn');
+        login_btn.addEventListener('click', e=>{
             e.preventDefault();
             alert('로그인 버튼 클릭');
             id = document.getElementById('customerId').value;
             pass = document.getElementById('password').value;
-
-            // count();
-        
-            let xhr = new XMLHttpRequest(),
-                method='GET',
-                url = 'login/' + id + '/' + pass;
-                //다 담아줌. 끝에 true는 값을 빨리 보내주는 것?
-                xhr.open(method, url, true);
-                xhr.onreadystatechange=()=>{
-                    // 밑에 상황일때만 보낼수잇음.
-                    if(xhr.readyState === 4 && xhr.status === 200) {
-                        let d =  xhr.responseText;
-                        if(d==='SUCCESS'){
-                            alert('hd');
-                            wrapper.innerHTML = '<h1>마이페이지</h1>';
-                        }else {
-                            // login_form();     
-                            wrapper.innerHTML = '<h1>로그인실패함</h1>';                       
-                        }
-             
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'customers/'+id+'/'+pass, true);
+            xhr.onload=()=>{
+                if(xhr.readyState=== 4 && xhr.status === 200){
+                    if(xhr.responseText){
+                        $wrapper.innerHTML = customer.mypage();
+                    }else{
+                        app.init();
                     }
-                };
-                xhr.send();
-        });   
-    }
- //열고 상태변화하고 보냄 
-    let count =()=>{
-        let xhr = new XMLHttpRequest();
-        method = 'GET';
-        url= 'count';
-        xhr.open(method, url, true);
-        xhr.onreadystatechange=()=>{    //데이터 상태를 말함. statechange 데이터 상태가 바뀜.
-            if(xhr.readyState===4 && xhr.status === 200) {
-                alert('총 고객 수 성공');
-                let wrapper = document.querySelector('#wrapper'); 
-                wrapper.innerHTML ='총 고객수 : <h1>' + xhr.responseText + '</h1>'
-            }
-        }
-        xhr.send();
-    }
-
-    let result =()=> {
-        let xhr = new XMLHttpRequest();
-        method = 'GET';
-        url= 'login';
-        xhr.open(method, url, true);
-        xhr.onreadystatechange=()=>{    //데이터 상태를 말함. statechange 데이터 상태가 바뀜.
-            if(xhr.readyState===4 && xhr.status === 200) {
-                alert('result성공');
-                let wrapper = document.querySelector('#wrapper'); 
-                wrapper.innerHTML ='성공여부: <h1>' + xhr.responseText + '</h1>'
-            }
-        }
-        xhr.send();
-    }
-
-        let join_form = () => {
-            let wrapper = document.querySelector('#wrapper');
-            wrapper.innerHTML =
-             '<form action="/action_page.php">'
-             + '  id:<br>'
-             + '  <input type="text" name="id" value="id">'
-             + '  <br>'
-             + '  pw:<br>'
-             + '  <input type="text" name="pw" value="pw">'
-             + '  <br>'
-             + '  name:<br>'
-             + '  <input type="text" name="c_name" value="name">'
-             + '  <br>'
-             + '  birth:<br>'
-             + '  <input type="text" name="birth" value="birth">'
-             + '  <br>'
-             + '  phone:<br>'
-             + '  <input type="text" name="phone" value="phone">'
-             + '  <br><br>'
-             + '  <input type="submit" id="btn_confirm" value="확인">'
-            //  + '  <input type="reset" id="btn_cancel" value="취소">'
-             +'</form> '
- 
- 
-        let btn_confirm = document.querySelector('#btn_confirm');
-        btn_confirm.addEventListener('click', () => {
-            login_form();
+                    
+                }
+            };
+            xhr.send();
+            
         });
-
-        
+  
     }
 
-    return {
-        aa: init  //init은 public 메소드가 되었다
+    function join(){
+        let xhr = new XMLHttpRequest();
+        let data = {
+            customerId : document.getElementById('customerId').value,
+            customerName : document.getElementById('customerName').value, 
+            password : document.getElementById('password').value,
+            ssn : document.getElementById('ssn').value,
+            phone : document.getElementById('phone').value,
+            city : document.getElementById('city').value,
+            address : document.getElementById('address').value,
+            postalcode : document.getElementById('postalcode').value,
+        };
+
+        xhr.open('POST','customers', true);
+        xhr.setRequestHeader('Content-type','application/json; charset=UTF-8');
+        xhr.onload=()=>{
+            if(xhr.readyState===4 && xhr.status === 200) {
+                let d = JSON.parse(xhr.responseText);
+                if(d.result === 'SUCCESS'){
+                    alert('회원가입 성공 : ' + d.result);
+                  //로그인 폼이 들어옴
+
+                  app.init();
+
+                }else{
+                    alert('회원가입 실패');   
+                }
+            }else {
+                alert('AJAX 실패')
+            }
+                
+        };
+        xhr.send(JSON.stringify(data));
+    }
+
+    function count(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'customers/count', true);
+        xhr.onload=()=>{
+            if(xhr.readyState===4 && xhr.status === 200){
+                alert('성공');
+                let wrapper = document.querySelector('#wrapper');
+                wrapper.innerHTML = '총 고객수 : <h1>'+xhr.responseText+'</h1>'
+            }
+        }
+        xhr.send();
     };
- })(); //();  끝에 이부분이 '즉시 실행해라' 라는 것
+
+
+
+
+function mypage(){
+return '<h1>마이페이지</h1> ';
+};
+
+function login_form(){
+return '<form action="/action_page.php">'
++'  ID:<br>'
++'  <input type="text" id="customerId" name="customerId">'
++'  <br>'
++'  PWD:<br>'
++'  <input type="text" id="password" name="password">'
++'  <br><br>'
++'  <input id="login-btn" type="button" value="LOGIN">'
++'  <input id="join-btn" type="button" value="JOIN">'
++'</form> ';
+};
+
+function join_form(){
+return '<form>'
++ '아이디<br>'
++'	<input type="text" id="customerId" name="pw"><br>'
++'	비밀번호<br>'
++'	<input type="password" id="password" name="name"><br>'
++'	이 름<br>'
++'	<input type="text" id="customerName" name="ssn"><br>'
++ '주민번호<br>'
++'	<input type="text" id="ssn" name="ssn"><br>'
++'	전화번호<br>'
++'	<input type="text" id="phone" name="phone"><br>'
++'	도 시<br>'
++'	<input type="text" id="city" name="city"><br>'
++ '주 소<br>'
++'	<input type="text" id="address" name="address"><br>'
++'	우편번호<br>'
++'	<input type="text" id="postalcode" name="postalcode"><br>'
++' <br><br>'
++'	<input id="confirm-btn" type="submit" value="확인">'
++'	<input id="cancel-btn" type="reset" value="취소">'
++'</form>';
+}
