@@ -28,7 +28,7 @@
                                             parameterType="com.amg.web.domain.CustomerDTO">
     select * from CUSTOMERS where CUSTOMER_NAME LIKE #{customerName} 
   </select>
-    <select id="selectCustomerByCustomerId" resultMap="customerMap"
+    <select id="selectCustomerById" resultMap="customerMap"
                                             parameterType="string">
     select * from CUSTOMERS where CUSTOMER_ID LIKE #{value}
   </select>
