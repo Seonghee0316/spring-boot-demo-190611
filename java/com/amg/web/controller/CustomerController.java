@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.amg.web.common.util.Printer;
 import com.amg.web.domain.CustomerDTO;
 import com.amg.web.service.CustomerService;
 
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class CustomerController {
     @Autowired CustomerService customerService;
     @Autowired CustomerDTO customer;
+    @Autowired Printer p;
 
     @PostMapping("")
     public HashMap<String,Object> join(@RequestBody CustomerDTO param){
@@ -36,7 +38,6 @@ public class CustomerController {
         System.out.println("name" + param.getCustomerName());
         HashMap<String, Object> map = new HashMap<>();
         map.put("result", "SUCCESS");
-
         customerService.addCustomer(param);
         return map;
     }
@@ -44,17 +45,17 @@ public class CustomerController {
     @GetMapping("")
     public List<CustomerDTO> list(){
         List<CustomerDTO> list = new ArrayList<>();
-        list = customerService.findCustomers();
-        for (CustomerDTO customer : list) {
-            System.out.println(customer.getCustomerId()+" : "
-                            +customer.getCustomerName()+" : "
-                            +customer.getPassword()+" : "
-                            +customer.getSsn()+" : "
-                            +customer.getPhone()+" : "
-                            +customer.getCity()+" : "
-                            +customer.getAddress()+" : "
-                            +customer.getPostalcode());
-        }
+        // list = customerService.findCustomers();
+        // for (CustomerDTO customer : list) {
+        //     System.out.println(customer.getCustomerId()+" : "
+        //                     +customer.getCustomerName()+" : "
+        //                     +customer.getPassword()+" : "
+        //                     +customer.getSsn()+" : "
+        //                     +customer.getPhone()+" : "
+        //                     +customer.getCity()+" : "
+        //                     +customer.getAddress()+" : "
+        //                     +customer.getPostalcode());
+        // }
         return list;
     }
 
@@ -62,7 +63,7 @@ public class CustomerController {
     public String count() {
         System.out.println("CustomerController count() 경로로 들어옴");
         int count = customerService.countAll();
-        System.out.println("고객의 총인원 : "+count);
+        p.accept("람다가 출력한 고객의 총인원 : "+count);
         return count+"";
     }
 

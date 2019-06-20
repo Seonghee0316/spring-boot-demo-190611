@@ -20,14 +20,25 @@
      values (#{customerId},#{customerName},#{password}, #{ssn},#{phone},#{city}, #{address},#{postalcode},#{photo})
     </insert>
 
-  <select id="selectCustomers" resultMap="customerMap">
-    select * from CUSTOMERS 
-  </select>
   <!-- 아이디만 아니면 됨. option은 임의로 박아놓음 -->
     <select id="selectCustomersByOption" resultMap="customerMap"
                                             parameterType="com.amg.web.domain.CustomerDTO">
     select * from CUSTOMERS where CUSTOMER_NAME LIKE #{customerName} 
   </select>
+
+  <!-- <select id="selectCustomers" resultMap="customerMap">
+    select * from CUSTOMERS 
+  </select> -->
+  
+  <select id="selectCustomers" resultMap="customerMap"
+        parameterType="com.amg.web.common.util.PageProxy">
+         SELECT @ROWNUM:=@ROWNUM+1 AS rownum,
+                C.*
+        FROM CUSTOMERS C, (SELECT @ROWNUM:=0)TMP
+        ORDER BY rownum DESC
+        LIMIT #{startRow}, #{pageSize}
+  </select>
+
     <select id="selectCustomerById" resultMap="customerMap"
                                             parameterType="string">
     select * from CUSTOMERS where CUSTOMER_ID LIKE #{value}
