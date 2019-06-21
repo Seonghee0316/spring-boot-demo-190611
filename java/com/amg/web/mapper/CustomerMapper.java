@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerMapper {
     public void insertCustomer(CustomerDTO customer);
-    // public List<CustomerDTO> selectCustomers();
+    public List<CustomerDTO> selectCustomers(PageProxy pxy);
     public List<CustomerDTO> selectCustomersByOption(CustomerDTO option); //값을 여러개 담을 땐 DTO
     public CustomerDTO selectCustomerById(String customerId);  //하나만 담을때 String도 객체임.
     public int updateCustomer(CustomerDTO customer); 
@@ -22,5 +22,4 @@ public interface CustomerMapper {
 	public int selectCount();       //result type int로 만들어서 String에서 int로 바뀸.
     // CustomerMapper.xml의 값이 들어옴.
     public CustomerDTO login(CustomerDTO customer);
-    public List<CustomerDTO> selectCustomers(PageProxy page);
 }

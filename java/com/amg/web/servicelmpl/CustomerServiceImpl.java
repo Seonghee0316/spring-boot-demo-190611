@@ -23,10 +23,10 @@ public class CustomerServiceImpl implements CustomerService {
         customerMapper.insertCustomer(customer);
     }
 
-    // @Override
-    // public List<CustomerDTO> findCustomers() {
-    // return customerMapper.selectCustomers();
-    // }
+    @Override
+    public List<CustomerDTO> findCustomers(PageProxy pxy) {
+        return customerMapper.selectCustomers(pxy);
+    }
 
     @Override
     public List<CustomerDTO> findCustomersByOption(CustomerDTO option) {
@@ -65,15 +65,5 @@ public class CustomerServiceImpl implements CustomerService {
         System.out.println("컨트롤러에서 넘어온 PASS: " + customer.getPassword());
         return customerMapper.login(customer);
     }
-
-    @Override
-    public List<CustomerDTO> findCustomers(PageProxy page) {
-        return customerMapper.selectCustomers(page);
-    }
-
-    // @Override
-    // public List<CustomerDTO> findCustomers() {
-    //     return null;
-    // }
 
 }

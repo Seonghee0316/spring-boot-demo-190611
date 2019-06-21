@@ -15,6 +15,7 @@
 <result property="postalcode" column="POSTALCODE"/>
   <result property="photo" column="PHOTO"/>
 </resultMap>
+
     <insert id="insertCustomer" parameterType="com.amg.web.domain.CustomerDTO">
       insert into CUSTOMERS (CUSTOMER_ID, CUSTOMER_NAME, PASSWORD, SSN, PHONE, CITY, ADDRESS, POSTALCODE, PHOTO)
      values (#{customerId},#{customerName},#{password}, #{ssn},#{phone},#{city}, #{address},#{postalcode},#{photo})
@@ -25,10 +26,6 @@
                                             parameterType="com.amg.web.domain.CustomerDTO">
     select * from CUSTOMERS where CUSTOMER_NAME LIKE #{customerName} 
   </select>
-
-  <!-- <select id="selectCustomers" resultMap="customerMap">
-    select * from CUSTOMERS 
-  </select> -->
   
   <select id="selectCustomers" resultMap="customerMap"
         parameterType="com.amg.web.common.util.PageProxy">

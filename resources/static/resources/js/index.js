@@ -44,22 +44,72 @@ function customer_list_form() {
  
 }
 
-function customer_list(){
+
+
+function create_customer_row(x) {
+        return "<tr><td>"+x.customerId+"</td><td>"+x.customerName+"</td>"
+        +"<td>"+x.ssn+"</td><td>"+x.phone+"</td><td>"+x.city+"</td><tr>";
+}
+
+function customer_list(x){
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'customers', true);
+    //pageNum, pageSize, blockSize 가져와야함.
+
+    xhr.open('GET', 'customers/page/'+x, true);
     xhr.onload=()=>{
         if(xhr.readyState=== 4 && xhr.status === 200){
-            // let d = JSON.parse(xhr.responseText);
+            let d = JSON.parse(xhr.responseText);
+            // alert(d[0].customerName);
             let wrapper = document.querySelector('#wrapper');
             wrapper.innerHTML = employee.customer_list_form();
             let tbody = document.getElementById('tbody');
             let i = 0;
-            let rows = '';
-            for (;i<5;i++) {
-                rows += "<tr><td>"+i+"</td><td>"+i+"</td>"
-                +"<td>"+i+"</td><td>"+i+"</td><td>"+i+"</td><tr>";
+            d.forEach((v, i)=>{
+                tbody.innerHTML+=create_customer_row(v);
+            });
+
+            let blocks = document.createElement('div');
+            blocks.setAttribute('id', 'blocks');
+            wrapper.appendChild(blocks);
+            let spans = document.createElement('div');
+            i = 1;
+            
+            for(;i<6;i++){
+                let span = document.createElement('span')
+                span.setAttribute('style',
+                'display:inline-block;padding-right:20px;'
+                +'border: 1px solid black; cursor:pointer')
+                span.setAttribute('class','page-num');
+                span.innerHTML = i;
+                if(x == span.innerHTML) {
+                    span.style.backgroundColor = "red";
+                }
+
+                span.addEventListener('click', e=>{
+                    e.preventDefault();
+                    employee.customer_list(i);
+                });
+                spans.appendChild(span);  
             }
-            tbody.innerHTML=rows;
+            blocks.appendChild(spans);
+            let clss = document.getElementsByClassName('page-num');
+
+            if(d.existPrev){
+                let prevBlock = document.createElement('span');
+                span.setAttribute('style',
+                'display:inline-block;padding-right:20px;'
+                +'border: 1px solid black; cursor:pointer')
+                blocks.prependChild(prevBlock)  
+            }           
+
+            if(d.existNext){
+                let nextBlock = document.createElement('span');
+                span.setAttribute('style',
+                'display:inline-block;padding-right:20px;'
+                +'border: 1px solid black; cursor:pointer')
+                blocks.appendChild(nextBlock)  
+            }
+            
         }
      
     };
@@ -87,7 +137,7 @@ document.getElementById('join-btn')
 document.getElementById('login-btn')
     .addEventListener('click',e=>{
         e.preventDefault();
-        alert('로그인 버튼 클릭');
+        // alert('로그인 버튼 클릭');
         customer.login({userid : 'customerId',
                         domain : 'customers'
                         });
@@ -95,7 +145,7 @@ document.getElementById('login-btn')
 document.getElementById('admin-btn')
     .addEventListener('click',e=>{
         e.preventDefault();
-        alert('관리자 버튼 클릭');
+        // alert('관리자 버튼 클릭');
         employee.admin_login();
 });
 }
@@ -105,7 +155,7 @@ let isAdmin = confirm("관리자입니까?");
 if(isAdmin){
     let pass = prompt("관리자 번호를 입력하세요");
     if(pass == 1000){
-        employee.customer_list();
+        employee.customer_list('1');
     }else{
         alert('입력한 번호가 일치하지 않습니다.');
     }
