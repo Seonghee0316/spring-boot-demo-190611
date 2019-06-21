@@ -2,7 +2,6 @@ package com.amg.web.controller;
 
 
 import java.util.HashMap;
-import java.util.List;
 
 import com.amg.web.common.util.PageProxy;
 import com.amg.web.common.util.Printer;
@@ -45,7 +44,7 @@ public class CustomerController {
 
     // 페이지 처리 후 리퀘스트 바디 써야함.
     @GetMapping("/page/{pageNum}")
-    public List<CustomerDTO> list(@PathVariable String pageNum){
+    public HashMap<String, Object> list(@PathVariable String pageNum){
         // 뭘 담아야지 페이지 프록시가 기능 할수있는가?
         //컨트롤러가 얘네들은 알려줘야지 프록시가 정보를 갖고 해결해줌. 
         //rowCount, page_num, page_size, block_size
@@ -56,6 +55,8 @@ public class CustomerController {
         map.put("page_size", "5");
         map.put("block_size", "5");
         pxy.execute(map);   //PageProxy의 메소드에 map을 넣어줌.
+        map.put("list", customerService.findCustomers(pxy));
+        map.put("pxy",pxy);
         // list = customerService.findCustomers();
         // for (CustomerDTO customer : list) {
         //     System.out.println(customer.getCustomerId()+" : "
@@ -67,7 +68,7 @@ public class CustomerController {
         //                     +customer.getAddress()+" : "
         //                     +customer.getPostalcode());
         // }
-        return customerService.findCustomers(pxy);
+        return map;
     }
 
     @GetMapping("/count")   

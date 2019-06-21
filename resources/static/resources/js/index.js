@@ -60,11 +60,13 @@ function customer_list(x){
         if(xhr.readyState=== 4 && xhr.status === 200){
             let d = JSON.parse(xhr.responseText);
             // alert(d[0].customerName);
+            // let list = d.list;
+            // let pxy = d.pxy;
             let wrapper = document.querySelector('#wrapper');
             wrapper.innerHTML = employee.customer_list_form();
             let tbody = document.getElementById('tbody');
             let i = 0;
-            d.forEach((v, i)=>{
+            d.list.forEach((v, i)=>{
                 tbody.innerHTML+=create_customer_row(v);
             });
 
@@ -72,29 +74,40 @@ function customer_list(x){
             blocks.setAttribute('id', 'blocks');
             wrapper.appendChild(blocks);
             let spans = document.createElement('div');
+            span.setAttribute('style', 'display:inline-block');
             i = 1;
-            
+
+
             for(;i<6;i++){
                 let span = document.createElement('span')
-                span.setAttribute('style',
-                'display:inline-block;padding-right:20px;'
-                +'border: 1px solid black; cursor:pointer')
+                span.setAttribute('style','display:inline-block;padding-right:20px; border: 1px solid black; cursor:pointer');
                 span.setAttribute('class','page-num');
                 span.innerHTML = i;
                 if(x == span.innerHTML) {
                     span.style.backgroundColor = "red";
                 }
-
-                span.addEventListener('click', e=>{
-                    e.preventDefault();
-                    employee.customer_list(i);
-                });
-                spans.appendChild(span);  
+                spans.appendChild(span);
             }
             blocks.appendChild(spans);
             let clss = document.getElementsByClassName('page-num');
+            i = 0;
+            // var spanList = blocks.children;
+            for(i;clss.length;i++){
+                (function(i){
+                    clss[i].addEventListener('click',function(){
+                        customer_list(this.innerText)
+                    })
+     
+                })(i)
+            }
 
-            if(d.existPrev){
+            spans.appendChild(span);  
+            Array.prototype.forEach.call(clss, x=>{
+                employee.customer_list(x.innerText);
+            });
+           
+
+            if(d.pxy.existPrev){
                 let prevBlock = document.createElement('span');
                 span.setAttribute('style',
                 'display:inline-block;padding-right:20px;'
@@ -102,7 +115,7 @@ function customer_list(x){
                 blocks.prependChild(prevBlock)  
             }           
 
-            if(d.existNext){
+            if(d.pxy.existNext){
                 let nextBlock = document.createElement('span');
                 span.setAttribute('style',
                 'display:inline-block;padding-right:20px;'
